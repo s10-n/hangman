@@ -20,10 +20,18 @@ while replay:
     guessed_letters = []
     for letter in secret_word:
         secret_word_dictionary += letter
-
-
     # gameplay loop
     while True:
+        # show the correct gallows
+        print(assets.hanged_men[wrong_guess_count])
+        # show the secret word (in progress)
+        for letter in secret_word:
+            if letter in guessed_letters:
+                print(letter, end=' ')
+            else:
+                print('_', end=' ')
+        # show the guessed letters
+        print('\n\nGuessed letters: ' + ' '.join(guessed_letters) + '\n')
         # test if the player has won
         winning_condition = True
         for letter in secret_word_dictionary:
@@ -35,20 +43,10 @@ while replay:
         if winning_condition:
             game_won = True
             break
-        # show the correct gallows
-        print(assets.hanged_men[wrong_guess_count])
         # if the player has lost, exit the loop with game_won false
         if wrong_guess_count == 6:
             game_won = False
             break
-        # show the secret word (in progress)
-        for letter in secret_word:
-            if letter in guessed_letters:
-                print(letter, end=' ')
-            else:
-                print('_', end=' ')
-        # show the guessed letters
-        print('\n\nGuessed letters: ' + ' '.join(guessed_letters) + '\n')
         # ask the player to guess a letter
         valid_input = False
         while not valid_input:
@@ -69,9 +67,9 @@ while replay:
             wrong_guess_count += 1
         # return to the beginning of the loop
     if game_won:
-        print('\nYou win!')
+        print('You win!')
     else:
-        print('\nYou lose!')
+        print('You lose! The secret word was "' + secret_word + '."')
     valid_replay_input = False
     while not valid_replay_input:
         play_again = input('\nPlay again? (yes or no): ').lower()
